@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xanhfish - Chuyên Cung Cấp Cá Cảnh Biển</title>
+<style>
+/* ========================================================
+   THEME: LANDO NORRIS SPEED & IVORY GLASS (PURE BLACK)
+   ======================================================== */
+:root {
+  --bg: #050505;
+  --bg-card: rgba(245, 242, 234, 0.035);
+  --bg-card-hover: rgba(245, 242, 234, 0.07);
+  --ivory: #f7f4eb;
+  --ivory-muted: #b5b1a5;
+  --line: rgba(247, 244, 235, 0.12);
+  --line-bright: rgba(247, 244, 235, 0.28);
+  --accent: #e8e4d8;
+  --accent-btn: #ffffff;
+  --accent-text: #050505;
+  box-sizing: border-box;
+}
+html { scroll-behavior: smooth; background: var(--bg); }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--ivory);
+  background-color: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Background Motion Lights (Cảm hứng ánh sáng đường đua động) */
+.bg-ambient {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.ambient-glow-1 {
+  position: absolute;
+  top: -20%; left: 15%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, rgba(245, 242, 234, 0.07) 0%, rgba(58, 72, 230, 0.08) 40%, transparent 70%);
+  filter: blur(80px);
+  animation: floatSlow 18s ease-in-out infinite alternate;
+}
+.ambient-glow-2 {
+  position: absolute;
+  bottom: -15%; right: 10%;
+  width: 55vw; height: 55vw;
+  background: radial-gradient(circle, rgba(245, 242, 234, 0.05) 0%, rgba(0, 180, 216, 0.06) 45%, transparent 70%);
+  filter: blur(90px);
+  animation: floatSlow 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes floatSlow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.08); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+/* Glassmorphism Classes */
+header, .hero-card, .card, .feature-item, .map-container, #panel, .tools input, .chip, .pagination button, .modal-content {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+}
+
+/* ========================================================
+   HEADER SCROLL MOTION (KIỂU LANDO NORRIS)
+   ======================================================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid var(--line);
+  background: rgba(5, 5, 5, 0.55);
+}
+header.scrolled {
+  background: rgba(5, 5, 5, 0.88);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid var(--line-bright);
+}
+.bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .bar {
+  padding: 8px 24px;
+}
+.bar img {
+  height: 64px;
+  width: auto;
+  border-radius: 8px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+header.scrolled .bar img {
+  height: 40px;
+}
+.brand-name {
+  font-weight: 900;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--ivory);
+  flex: 1;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .brand-name {
+  font-size: 16px;
+  letter-spacing: 6px;
+}
+.cart {
+  background: var(--ivory);
+  color: #050505;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(247, 244, 235, 0.15);
+  transition: 0.25s ease;
+  flex-shrink: 0;
+}
+.cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(247, 244, 235, 0.3);
+}
+
+/* --- HERO BANNER --- */
+.hero { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.hero-card {
+  padding: 55px 20px;
+  text-align: center;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--ivory);
+  line-height: 1.15;
+}
+.hero p {
+  display: inline-block;
+  margin: 0;
+  padding: 12px 28px;
+  font-size: clamp(13px, 2.5vw, 15px);
+  font-weight: 700;
+  color: var(--ivory);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: rgba(245, 242, 234, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+/* --- FEATURES GRID --- */
+.features { max-width: 1200px; margin: 20px auto 50px auto; padding: 0 20px; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 20px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+.feature-item:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: var(--line-bright);
+}
+.feature-icon {
+  width: 70px; height: 70px;
+  background: rgba(247, 244, 235, 0.04);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+}
+.feature-icon svg { width: 30px; height: 30px; stroke: var(--ivory); }
+.feature-title { font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; color: var(--ivory); margin: 0 0 6px 0; }
+.feature-link { font-size: 13px; color: var(--ivory-muted); text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.feature-link:hover { color: var(--ivory); text-decoration: underline; }
+
+/* --- MAIN & FISH CARDS (MÀU TRẮNG NGÀ / IVORY) --- */
+main { max-width: 1200px; margin: auto; padding: 20px; }
+.tools { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.tools input {
+  flex: 1; min-width: 220px; padding: 13px 18px;
+  border-radius: 999px; color: var(--ivory); font-size: 14px; outline: none;
+}
+.tools input:focus { border-color: var(--line-bright); }
+.chip {
+  color: var(--ivory-muted); padding: 10px 20px; border-radius: 999px;
+  cursor: pointer; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  transition: 0.25s;
+}
+.chip:hover { color: var(--ivory); background: var(--bg-card-hover); }
+.chip.on {
+  background: var(--ivory); color: #050505; border-color: var(--ivory);
+  box-shadow: 0 4px 18px rgba(247, 244, 235, 0.2);
+}
+h2 {
+  font-size: 26px; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 3px; color: var(--ivory); margin: 0 0 24px 0;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(247, 244, 235, 0.035);
+  border: 1px solid var(--line);
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--line-bright);
+  background: rgba(247, 244, 235, 0.06);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+.pic {
+  background: radial-gradient(circle, #1a1918 0%, #0d0c0c 100%);
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.pic::after {
+  content: "XEM CHI TIẾT";
+  position: absolute; bottom: 8px; right: 8px;
+  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+  color: var(--ivory); opacity: 0; transition: 0.25s;
+  background: rgba(0, 0, 0, 0.7); padding: 5px 10px; border-radius: 999px;
+  border: 1px solid var(--line); pointer-events: none;
+}
+.pic:hover::after { opacity: 1; }
+.pic svg, .pic img, .pic video { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.4s ease; }
+.pic:hover svg, .pic:hover img, .pic:hover video { transform: scale(1.05); }
+
+.info { padding: 18px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.info b { font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ivory); }
+.info small { color: var(--ivory-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+.price { color: var(--ivory); font-weight: 900; font-size: 20px; margin-top: 4px; letter-spacing: 0.5px; }
+
+.info button {
+  margin-top: auto;
+  background: transparent;
+  color: var(--ivory);
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  padding: 12px;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.info button:hover {
+  background: var(--ivory);
+  color: #050505;
+  box-shadow: 0 4px 15px rgba(247, 244, 235, 0.2);
+}
+.info button:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--line); background: transparent; color: var(--ivory-muted); }
+
+.pagination { display: flex; justify-content: center; gap: 10px; margin: 40px 0 20px; flex-wrap: wrap; }
+.pagination button {
+  padding: 10px 18px; border-radius: 999px; cursor: pointer;
+  font-weight: 800; font-size: 13px; color: var(--ivory);
+  text-transform: uppercase; letter-spacing: 1px; transition: 0.2s;
+}
+.pagination button:hover:not(:disabled) { border-color: var(--line-bright); background: var(--bg-card-hover); }
+.pagination button.active { background: var(--ivory); color: #050505; border-color: var(--ivory); }
+.pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* --- CART PANEL --- */
+#panel {
+  position: fixed; right: 0; top: 0; bottom: 0;
+  width: min(380px, 100%); padding: 30px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000; overflow-y: auto;
+}
+#panel.open { transform: none; box-shadow: -15px 0 40px rgba(0,0,0,0.9); }
+.row { display: flex; justify-content: space-between; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+
+/* --- MODAL (POPUP ĐA NĂNG) --- */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000; opacity: 0; pointer-events: none; transition: 0.3s ease;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-content {
+  border-radius: 24px; padding: 35px 28px; width: 92%; max-width: 440px;
+  text-align: center;
+  transform: scale(0.92); transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 90vh; overflow-y: auto;
+  border: 1px solid var(--line-bright);
+}
+.modal-overlay.show .modal-content { transform: scale(1); }
+.modal-content h3 { margin: 0 0 14px; color: var(--ivory); font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+.modal-content p { color: var(--ivory-muted); margin: 0 0 25px; font-size: 15px; line-height: 1.6; }
+.modal-content input {
+  width: 100%; padding: 14px 18px; border-radius: 12px;
+  border: 1px solid var(--line); background: rgba(0, 0, 0, 0.6);
+  color: var(--ivory); font-size: 16px; margin-bottom: 25px; outline: none;
+}
+.modal-content input:focus { border-color: var(--line-bright); }
+.modal-actions { display: flex; gap: 12px; }
+.modal-actions button {
+  flex: 1; padding: 13px; border-radius: 999px;
+  font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+  cursor: pointer; transition: 0.2s; border: none;
+}
+.btn-cancel { background: transparent; color: var(--ivory-muted); border: 1px solid var(--line) !important; }
+.btn-cancel:hover { background: rgba(255, 255, 255, 0.08); color: var(--ivory); }
+.btn-confirm { background: var(--ivory); color: #050505; }
+.btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(247, 244, 235, 0.25); }
+
+/* --- POPUP DETAIL CÁ --- */
+.fish-info-wrap { text-align: left; }
+.fish-info-pic {
+  width: 100%; height: 220px; border-radius: 16px; margin-bottom: 20px;
+  background: radial-gradient(circle, #1a1918 0%, #0d0c0c 100%);
+  overflow: hidden; border: 1px solid var(--line);
+}
+.fish-info-pic video, .fish-info-pic img, .fish-info-pic svg { width: 100%; height: 100%; object-fit: cover; }
+.info-detail-row { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.info-detail-row:last-child { border-bottom: none; }
+.info-detail-row b { display: block; color: var(--ivory); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
+.info-detail-row span { display: block; color: var(--ivory-muted); font-size: 14.5px; line-height: 1.6; }
+.btn-close-info {
+  width: 100%; margin-top: 15px; background: transparent;
+  color: var(--ivory); border: 1px solid var(--line-bright); border-radius: 999px;
+  padding: 13px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+  cursor: pointer; transition: 0.2s;
+}
+.btn-close-info:hover { background: var(--ivory); color: #050505; }
+
+/* --- MAP & FOOTER --- */
+.map-section { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+.map-container { display: flex; flex-wrap: wrap; border-radius: 24px; overflow: hidden; }
+.map-info { flex: 1; min-width: 300px; padding: 40px; }
+.map-info h3 { margin: 0 0 15px; font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+.map-info p { color: var(--ivory-muted); line-height: 1.7; margin: 0 0 25px; font-size: 15px; }
+.btn-map {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ivory); color: #050505; text-decoration: none;
+  padding: 13px 24px; border-radius: 999px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+}
+.map-iframe { flex: 1.2; min-width: 300px; min-height: 350px; }
+.map-iframe iframe { width: 100%; height: 100%; border: none; opacity: 0.7; filter: contrast(1.1) grayscale(60%); }
+footer { text-align: center; color: var(--ivory-muted); padding: 40px 20px; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; border-top: 1px solid var(--line); }
+
+/* --- FLOATING BUTTONS --- */
+.float-contact { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 99; }
+.float-btn {
+  width: 50px; height: 50px; border-radius: 50%; color: #050505;
+  background: var(--ivory); text-decoration: none; display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 13px; box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  border: 1px solid var(--line-bright); transition: 0.25s;
+}
+.float-btn:hover { transform: scale(1.1); background: #ffffff; }
+#btnTop {
+  position: fixed; left: 24px; bottom: 24px; background: var(--bg-card);
+  color: var(--ivory); width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--line); font-size: 18px; cursor: pointer;
+  z-index: 99; opacity: 0; pointer-events: none; transition: 0.3s;
+}
+#btnTop:hover { background: var(--ivory); color: #050505; }
+
+@media (max-width: 600px) {
+  .bar { padding: 12px 16px; gap: 10px; }
+  .bar img { height: 44px; }
+  header.scrolled .bar img { height: 32px; }
+  .brand-name { font-size: 13px !important; letter-spacing: 3px !important; }
+  header.scrolled .brand-name { font-size: 12px !important; letter-spacing: 3px !important; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .info { padding: 12px 10px; gap: 4px; }
+  .info b { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .price { font-size: 16px; }
+  .info button { padding: 9px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-ambient">
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+</div>
+
+<header id="mainHeader">
+  <div class="bar">
+    <img src="logo.jpg" alt="Xanhfish" id="headerLogo">
+    <span class="brand-name">Xanhfish</span>
+    <button class="cart" onclick="toggle()">Giỏ hàng (<span id="cnt">0</span>)</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-card">
+    <h1>Cá Cảnh Biển Xanhfish</h1>
+    <p>Sinh thái thuần dưỡng · Tư vấn kỹ thuật setup bể chuyên sâu</p>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13H3v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3h-2m-8 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm8 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-8 0h8m-8-2h8m2-2h3.5a2 2 0 0 1 1.8 1.1l1.4 2.9h-6V11z" /></svg></div>
+      <p class="feature-title">Giao hàng hỏa tốc</p>
+      <a href="giao-hang.html" class="feature-link">Tìm hiểu phí ship →</a>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.956 11.956 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div>
+      <p class="feature-title">Bảo hành cá khỏe</p>
+      <a href="bao-hanh.html" class="feature-link">Quy định bảo hành →</a>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a1.994 1.994 0 0 1-1.414-.586m0 0L11 14h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4l.586-.586z" /></svg></div>
+      <p class="feature-title">Hỗ trợ kỹ thuật</p>
+      <a href="ho-tro.html" class="feature-link">Liên hệ tư vấn →</a>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5"></path><path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5"></path><path d="M14 10.5v-1.5a1.5 1.5 0 0 1 3 0v4.5"></path><path d="M17 11.5v-1.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7L7 19c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47"></path></svg></div>
+      <p class="feature-title">Order cá theo yêu cầu</p>
+      <a href="order-ca.html" class="feature-link">Đặt loài bạn tìm →</a>
+    </div>
+  </div>
+</section>
+
+<main id="sp">
+  <div class="tools" id="toolsBox">
+    <input id="q" placeholder="Đang đồng bộ dữ liệu kho..." readonly>
+  </div>
+  <h2>Danh Mục Sinh Vật</h2>
+  <div class="grid" id="grid"></div>
+  <div id="pagination" class="pagination"></div>
+</main>
+
+<section class="map-section">
+  <div class="map-container">
+    <div class="map-info">
+      <h3>📍 Xanhfish </h3>
+      <p><b>Địa chỉ:</b> 81/36 Đường Số 2, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.<br>
+      <b>Hotline:</b> 0985617606 - Hoài<br><br>
+      Cửa hàng luôn sẵn sàng đón tiếp người chơi đến tham quan quy trình dưỡng cá và chọn cá trực tiếp. Vui lòng liên hệ trước để nhận tư vấn kỹ thuật tốt nhất.</p>
+      <a href="https://maps.app.goo.gl/GyPGt3GmbWfPYizV6" target="_blank" class="btn-map">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Mở Google Maps
+      </a>
+    </div>
+    <div class="map-iframe">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.6427129462204!2d106.74610887428834!3d10.838630458044799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527b7b6670001%3A0xa4390f36f5a80d54!2zODEvMzYgxJAuIFPhu5EgMiwgVGjhu6cgxJDhu6ljLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1791423551356!5m2!1svi!2s" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </div>
+</section>
+
+<aside id="panel">
+  <h3 style="margin-top:0; color: var(--ivory); text-transform: uppercase; letter-spacing: 2px;">Giỏ hàng</h3>
+  <div id="items"></div>
+  <p style="margin: 25px 0 15px 0;"><b>Tổng cộng: <span id="total" style="color: var(--ivory); font-size: 18px;">0</span>đ</b></p>
+  <button id="btnDatHang" class="cart" style="width:100%" onclick="window.datHangFirebase()">Đặt hàng ngay</button>
+  <button class="chip" style="width:100%;margin-top:12px; background: rgba(255,255,255,0.06); border:none;" onclick="toggle()">Đóng</button>
+</aside>
+
+<footer>Xanhfish · Hotline / Zalo: 0985617606 · Thành phố Hồ Chí Minh</footer>
+
+<button id="btnTop" onclick="window.scrollTo(0,0)" title="Lên đầu trang">↑</button>
+
+<div class="float-contact">
+  <a href="tel:0985617606" class="float-btn" title="Gọi điện">📞</a>
+  <a href="https://zalo.me/0985617606" class="float-btn" target="_blank" title="Zalo">Zalo</a>
+  <a href="https://www.facebook.com/share/19Xt2LugJr/?mibextid=wwXIfr" class="float-btn" target="_blank" title="Facebook">FB</a>
+</div>
+
+<div id="customModal" class="modal-overlay" onclick="window.closeModalOutside(event)">
+  <div class="modal-content" id="modalBox"></div>
+</div>
+
+<script>
+// ====================================================================================
+// GOOGLE SHEETS SYNC LOGIC
+// ====================================================================================
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSWEJs3nsQGmWXGI8uhE6DLWoPBGydQVzJviJS2ZFhJ33pPLYaMQ2a-AZz__qWGBxREsQSWAeGB81AO/pub?output=csv";
+
+var FISH = [
+  { sl: 1, n:"Đang đồng bộ dữ liệu...", p:0, cat:"Kho", s:"...", b:"#2b5fd9", a:"#ffa726", t:"stripe", sz:.8, desc: "Vui lòng đợi giây lát..." }
+];
+
+async function initData() {
+  try {
+    const response = await fetch(CSV_URL);
+    const textData = await response.text();
+    const parsedData = parseCSV(textData);
+    if (parsedData.length > 0) {
+      FISH = parsedData;
+    }
+  } catch (error) {
+    console.error("Lỗi đồng bộ Sheets:", error);
+  }
+  renderFilters();
+  applyFilters(1, false);
+  upd();
+}
+
+function parseCSV(str) {
+  const rows = []; let row = [], curr = '', inQuotes = false;
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (inQuotes) {
+      if (char === '"') {
+        if (str[i + 1] === '"') { curr += '"'; i++; } else { inQuotes = false; }
+      } else { curr += char; }
+    } else {
+      if (char === '"') { inQuotes = true; }
+      else if (char === ',') { row.push(curr); curr = ''; }
+      else if (char === '\n' || char === '\r') {
+        if (char === '\r' && str[i+1] === '\n') i++;
+        row.push(curr); curr = ''; rows.push(row); row = [];
+      } else { curr += char; }
+    }
+  }
+  if (curr !== '') row.push(curr);
+  if (row.length > 0) rows.push(row);
+  if (rows.length < 2) return [];
+
+  const headers = rows[0].map(h => h.trim());
+  const result = [];
+  
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i].length < 2) continue;
+    let obj = {};
+    for (let j = 0; j < headers.length; j++) {
+      obj[headers[j]] = rows[i][j] ? rows[i][j].trim() : "";
+    }
+    const getVal = (key) => {
+      const realKey = Object.keys(obj).find(k => k.replace(/\s/g, '') === key);
+      return realKey ? obj[realKey] : "";
+    };
+
+    result.push({
+      n: getVal('TenCa') || "Sinh vật chưa đặt tên",
+      p: parseInt(getVal('Gia')) || 0,
+      sl: parseInt(getVal('SoLuong')) || 0,
+      cat: getVal('PhanLoai') || "Khác",
+      s: getVal('Size') || "",
+      b: getVal('MauBung') || "#f7f4eb",
+      a: getVal('MauLung') || "#1c1b18",
+      t: getVal('HoaVan') || "stripe",
+      sz: parseFloat(getVal('KichThuocVe')) || 1,
+      img: getVal('Anh') || "",
+      vid: getVal('Video') || "",
+      desc: getVal('MoTa') || "",
+      env: getVal('MoiTruong') || "",
+      mates: getVal('NuoiChung') || ""
+    });
+  }
+  return result;
+}
+
+function svg(f){
+ var b=f.b,a=f.a,x="";
+ if(f.t=="stripe")x='<path d="M95 62 q-8 28 0 56" stroke="'+a+'" stroke-width="9" fill="none"/><path d="M120 66 q-6 24 0 48" stroke="'+a+'" stroke-width="5" fill="none"/>';
+ if(f.t=="head")x='<ellipse cx="62" cy="78" rx="24" ry="22" fill="'+a+'"/>';
+ if(f.t=="saddle")x='<path d="M85 40 Q125 70 150 40 Q140 90 90 95Z" fill="'+a+'"/><rect x="48" y="62" width="8" height="34" fill="'+a+'"/>';
+ if(f.t=="face")x='<ellipse cx="62" cy="86" rx="20" ry="20" fill="'+a+'"/><path d="M110 50 Q150 90 110 130" stroke="#2b8cff" stroke-width="7" fill="none"/>';
+ if(f.t=="dots")x='<circle cx="55" cy="82" r="9" fill="'+a+'"/><path d="M92 90 l50 -4" stroke="#4fc3f7" stroke-width="3"/><path d="M92 102 l50 -4" stroke="#4fc3f7" stroke-width="3"/>';
+ if(f.t=="zebra")x=[78,96,114,132].map(function(v){return '<rect x="'+v+'" y="46" width="7" height="88" fill="'+a+'"/>'}).join("");
+ if(f.t=="nemo")x='<path d="M82 50 q-8 40 0 80 M118 54 q-6 36 0 72" stroke="#fff" stroke-width="12" fill="none"/><path d="M82 50 q-8 40 0 80 M118 54 q-6 36 0 72" stroke="#222" stroke-width="2" fill="none" transform="translate(7 0)"/>';
+ return '<svg viewBox="0 0 240 180"><g transform="translate(120 90) scale('+f.sz+') translate(-120 -90)">'
+ +'<path d="M175 90 L225 55 Q212 90 225 125Z" fill="'+(f.t=="nemo"?b:a==="#222"?"#333":b)+'"/>'
+ +'<ellipse cx="110" cy="90" rx="68" ry="44" fill="'+b+'"/>'
+ +'<clipPath id="c'+f.n.length+f.t+'"><ellipse cx="110" cy="90" rx="68" ry="44"/></clipPath>'
+ +'<g clip-path="url(#c'+f.n.length+f.t+')">'+x+'</g>'
+ +'<path d="M80 48 Q110 22 150 50Z" fill="'+(f.t=="saddle"?"#f2c94c":a==="#fff"?b:a)+'" opacity=".85"/>'
+ +'<circle cx="60" cy="80" r="7" fill="#fff"/><circle cx="58" cy="80" r="4" fill="#111"/></g></svg>';
+}
+
+var cart = [], filter = "all";
+var currentPage = 1;
+const itemsPerPage = 12;
+var filteredFish = [];
+
+function money(n){ return n.toLocaleString("vi-VN"); }
+
+function renderFilters() {
+  const cats = ["all", ...new Set(FISH.map(f => f.cat).filter(c => c))];
+  let html = `<input id="q" placeholder="Tìm kiếm tên loài..." oninput="applyFilters(1, true)">`;
+  cats.forEach(c => {
+    let label = c === "all" ? "Tất cả" : c;
+    let activeClass = filter === c ? "on" : "";
+    html += `<button class="chip ${activeClass}" data-f="${c}">${label}</button>`;
+  });
+  document.getElementById("toolsBox").innerHTML = html;
+
+  document.querySelectorAll(".chip[data-f]").forEach(function(btn){
+    btn.onclick = function(){
+      document.querySelectorAll(".chip[data-f]").forEach(x => x.classList.remove("on"));
+      btn.classList.add("on");
+      filter = btn.dataset.f;
+      applyFilters(1, true);
+    }
+  });
+}
+
+function applyFilters(page = 1, isClick = false) {
+  var qInput = document.getElementById("q");
+  var q = qInput ? qInput.value.toLowerCase() : "";
+  filteredFish = FISH.map((f, index) => ({...f, originalIndex: index}))
+                     .filter(f => (filter === "all" || f.cat === filter) && f.n.toLowerCase().indexOf(q) > -1);
+  currentPage = page;
+  renderGrid();
+  if (isClick) {
+    const mainSection = document.getElementById("sp");
+    if (mainSection) {
+      const offset = mainSection.offsetTop - 70;
+      window.scrollTo({ top: offset, behavior: "smooth" });
+    }
+  }
+}
+
+let isScrolling = false;
+let startX, startY;
+window.startPress = function(e) {
+  isScrolling = false;
+  if(e.touches) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+}
+window.movePress = function(e) {
+  if(e.touches) {
+    let dx = Math.abs(e.touches[0].clientX - startX);
+    let dy = Math.abs(e.touches[0].clientY - startY);
+    if (dx > 10 || dy > 10) { isScrolling = true; }
+  }
+}
+
+function renderGrid(){
+  var h = "";
+  var start = (currentPage - 1) * itemsPerPage;
+  var end = start + itemsPerPage;
+  var paginatedItems = filteredFish.slice(start, end);
+
+  paginatedItems.forEach(function(f){
+    var stockHtml = f.sl > 0 
+      ? '<div style="color: var(--ivory-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Kho: <b>' + f.sl + '</b> con</div>' 
+      : '<div style="color: #ff6b81; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Tạm hết hàng</div>';
+    
+    var btnHtml = f.sl > 0 
+      ? '<button onclick="add('+f.originalIndex+')">Thêm vào giỏ</button>'
+      : '<button disabled>Hết hàng</button>';
+
+    var mediaHtml = f.vid 
+      ? `<video src="${f.vid}" autoplay loop muted playsinline></video>` 
+      : (f.img ? `<img src="${f.img}">` : svg(f));
+
+    h+=`<div class="card">
+          <div class="pic" 
+               onclick="window.showFishDetail(${f.originalIndex})"
+               ontouchstart="window.startPress(event)" 
+               ontouchmove="window.movePress(event)">
+            ${mediaHtml}
+          </div>
+          <div class="info">
+            <b>${f.n}</b>
+            <small>${f.cat} · ${f.s}</small>
+            ${stockHtml}
+            <div class="price">${money(f.p)}đ</div>
+            ${btnHtml}
+          </div>
+        </div>`;
+  });
+  
+  document.getElementById("grid").innerHTML = h || '<div class="empty">Không có loài phù hợp.</div>';
+  renderPagination();
+}
+
+function renderPagination() {
+  var totalPages = Math.ceil(filteredFish.length / itemsPerPage);
+  var paginationContainer = document.getElementById("pagination");
+  if (totalPages <= 1) { paginationContainer.innerHTML = ""; return; }
+  var ph = "";
+  ph += '<button onclick="applyFilters('+(currentPage - 1)+', true)" '+(currentPage === 1 ? 'disabled' : '')+'>← Trước</button>';
+  for(var i = 1; i <= totalPages; i++) {
+    ph += '<button onclick="applyFilters('+i+', true)" class="'+(currentPage === i ? 'active' : '')+'">'+i+'</button>';
+  }
+  ph += '<button onclick="applyFilters('+(currentPage + 1)+', true)" '+(currentPage === totalPages ? 'disabled' : '')+'>Sau →</button>';
+  paginationContainer.innerHTML = ph;
+}
+
+function add(i){ if(FISH[i].sl > 0) { cart.push(i); upd(); } }
+function del(k){ cart.splice(k,1); upd(); }
+function upd(){
+  document.getElementById("cnt").textContent = cart.length;
+  var t = 0;
+  document.getElementById("items").innerHTML = cart.map(function(i,k){
+    t += FISH[i].p;
+    return '<div class="row"><span>'+FISH[i].n+'</span><span>'+money(FISH[i].p)+'đ <a href="#" onclick="del('+k+');return false" style="color:#ff6b81; font-weight:bold; margin-left:8px;">✕</a></span></div>';
+  }).join("") || '<p style="color:var(--ivory-muted); padding:30px 0; text-align:center;">Giỏ hàng trống.</p>';
+  document.getElementById("total").textContent = money(t);
+}
+function toggle(){ document.getElementById("panel").classList.toggle("open"); }
+
+// ========================================================
+// MODAL CONTROLLER
+// ========================================================
+const modalOverlay = document.getElementById('customModal');
+const modalBox = document.getElementById('modalBox');
+let modalTimer;
+
+window.closeModalOutside = function(e) {
+  if (e.target === modalOverlay) { window.closeModal(); }
+}
+window.closeModal = function() {
+  modalOverlay.classList.remove('show');
+  modalTimer = setTimeout(() => { modalBox.innerHTML = ''; }, 300);
+}
+
+window.showModalInput = function(title, message, placeholder = "") {
+  clearTimeout(modalTimer);
+  return new Promise((resolve) => {
+    modalBox.innerHTML = `
+      <h3>${title}</h3><p>${message}</p>
+      <input type="text" id="modalInput" placeholder="${placeholder}" autocomplete="off">
+      <div class="modal-actions">
+        <button id="modalCancel" class="btn-cancel">Hủy</button>
+        <button id="modalConfirm" class="btn-confirm">Tiếp tục</button>
+      </div>
+    `;
+    modalOverlay.classList.add('show');
+    setTimeout(() => document.getElementById('modalInput').focus(), 100);
+
+    document.getElementById('modalConfirm').onclick = () => { window.closeModal(); resolve(document.getElementById('modalInput').value); };
+    document.getElementById('modalCancel').onclick = () => { window.closeModal(); resolve(null); };
+    
+    document.getElementById('modalInput').addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById('modalConfirm').click();
+      }
+    });
+  });
+};
+
+window.showModalAlert = function(title, message) {
+  clearTimeout(modalTimer);
+  return new Promise((resolve) => {
+    modalBox.innerHTML = `
+      <h3>${title}</h3><p>${message}</p>
+      <div class="modal-actions"><button id="modalConfirm" class="btn-confirm">Đã hiểu</button></div>
+    `;
+    modalOverlay.classList.add('show');
+    document.getElementById('modalConfirm').onclick = () => { window.closeModal(); resolve(true); };
+  });
+};
+
+window.showFishDetail = function(index) {
+  if (isScrolling) return;
+  clearTimeout(modalTimer);
+  
+  let f = FISH[index];
+  let mediaHtml = f.vid 
+      ? `<video src="${f.vid}" autoplay loop playsinline controls style="width:100%; height:100%; object-fit:cover;"></video>` 
+      : (f.img ? `<img src="${f.img}">` : svg(f));
+  
+  modalBox.innerHTML = `
+    <div class="fish-info-wrap">
+      <div class="fish-info-pic">${mediaHtml}</div>
+      <h3 style="margin-bottom: 4px;">${f.n}</h3>
+      <div style="color: var(--ivory-muted); font-size: 13px; text-transform:uppercase; letter-spacing:1px; margin-bottom: 20px;">Phân loại: ${f.cat} · Size: ${f.s}</div>
+      
+      <div class="info-detail-row">
+        <b>Đặc Điểm & Tập Tính</b>
+        <span>${f.desc || "Đang cập nhật..."}</span>
+      </div>
+      <div class="info-detail-row">
+        <b>Môi Trường Bể</b>
+        <span>${f.env || "Đang cập nhật..."}</span>
+      </div>
+      <div class="info-detail-row">
+        <b>Khả Năng Nuôi Chung (Tank Mates)</b>
+        <span>${f.mates || "Đang cập nhật..."}</span>
+      </div>
+      
+      <button class="btn-close-info" onclick="window.closeModal()">Đóng cửa sổ</button>
+    </div>
+  `;
+  modalOverlay.classList.add('show');
+}
+
+// HEADER SCROLL MOTION (Lando Norris Header shrink effect)
+const mainHeader = document.getElementById("mainHeader");
+const btnTop = document.getElementById("btnTop");
+
+window.addEventListener("scroll", () => {
+  let sc = window.scrollY;
+  if (sc > 50) {
+    mainHeader.classList.add("scrolled");
+  } else {
+    mainHeader.classList.remove("scrolled");
+  }
+
+  if (sc > 300) {
+    btnTop.style.opacity = "1"; btnTop.style.pointerEvents = "auto";
+  } else {
+    btnTop.style.opacity = "0"; btnTop.style.pointerEvents = "none";
+  }
+});
+
+initData();
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getFirestore, collection, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCc-FAN9uLky_AHe3Ty9Qko4ma0-C6Yu70",
+    authDomain: "xanhfish-40050.firebaseapp.com",
+    projectId: "xanhfish-40050",
+    storageBucket: "xanhfish-40050.firebasestorage.app",
+    messagingSenderId: "900694749504",
+    appId: "1:900694749504:web:8d12b38608b5a344364aa5",
+    measurementId: "G-FYW06CN16X"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.datHangFirebase = async function() {
+    if (cart.length === 0) { 
+      await window.showModalAlert("Giỏ hàng trống", "Vui lòng chọn cá trước khi tiến hành đặt hàng."); 
+      return; 
+    }
+    
+    let tenKhach = await window.showModalInput("Thông tin khách hàng", "Nhập TÊN CỦA BẠN để Xanhfish hỗ trợ đơn:", "Họ và tên...");
+    if (!tenKhach) return; 
+    
+    let sdtKhach = await window.showModalInput("Số điện thoại", `Chào <b>${tenKhach.trim()}</b>,<br>Nhập SỐ ĐIỆN THOẠI để nhận cuộc gọi chốt đơn:`, "Ví dụ: 0985 617 606");
+    if (!sdtKhach) return; 
+    
+    sdtKhach = sdtKhach.replace(/[\s\.\-\+]/g, '');
+    const regexSDT = /^0[0-9]{9}$/;
+    if (!regexSDT.test(sdtKhach)) { 
+      await window.showModalAlert("Lỗi số điện thoại", "Số điện thoại không hợp lệ! Vui lòng nhập đúng 10 số bắt đầu bằng số 0."); 
+      return; 
+    }
+    
+    let btn = document.getElementById("btnDatHang");
+    let oldText = btn.textContent;
+    btn.textContent = "ĐANG GỬI...";
+    btn.disabled = true; 
+
+    let danhSachCa = [];
+    let tongTien = 0;
+    cart.forEach(function(i) {
+      danhSachCa.push({ ten_ca: FISH[i].n, gia: FISH[i].p });
+      tongTien += FISH[i].p;
+    });
+
+    try {
+      let maDonHang = sdtKhach + " - " + tenKhach.trim() + " - " + Math.floor(1000 + Math.random() * 9000);
+      await setDoc(doc(db, "don_hang", maDonHang), {
+        ten_khach: tenKhach.trim(),       
+        so_dien_thoai: sdtKhach,
+        san_pham: danhSachCa,
+        tong_tien: tongTien,
+        ngay_dat: serverTimestamp()
+      });
+
+      const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1557400822118096968/Htg7SJjgq_cCFDaEatHBL2Dz4hRZm1vmg0YyRltO3qbvCaHB6LIEBE1nCW62ml5hNYeX";
+      const noiDungDiscord = `🚨 **XANHFISH CÓ ĐƠN MỚI!** 🚨\n\n👤 **Khách hàng:** ${tenKhach.trim()}\n📞 **SĐT:** ${sdtKhach}\n💰 **Tổng tiền:** ${tongTien.toLocaleString('vi-VN')}đ\n\n👉 Kiểm tra đơn hàng trên hệ thống ngay!`;
+
+      fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: noiDungDiscord })
+      }).catch(err => console.log("Discord error:", err));
+
+      await window.showModalAlert("🎉 Đặt hàng thành công", `Xanhfish đã lưu đơn của <b>${tenKhach.toUpperCase()}</b>. Nhân viên sẽ liên hệ chốt giờ giao hàng sớm nhất.`);
+      cart = []; upd(); toggle(); 
+    } catch (error) {
+      console.error("Lỗi:", error);
+      await window.showModalAlert("Lỗi hệ thống", "Có lỗi xảy ra khi tạo đơn hàng. Vui lòng liên hệ Hotline trực tiếp!");
+    } finally {
+      btn.textContent = oldText; btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>

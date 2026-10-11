@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hỗ trợ Khách hàng - Xanhfish</title>
+<style>
+/* ========================================================
+   THEME: LANDO NORRIS SPEED & IVORY GLASS (PURE BLACK)
+   ======================================================== */
+:root {
+  --bg: #050505;
+  --bg-card: rgba(247, 244, 235, 0.035);
+  --bg-card-hover: rgba(247, 244, 235, 0.07);
+  --ivory: #f7f4eb;
+  --ivory-muted: #b5b1a5;
+  --line: rgba(247, 244, 235, 0.12);
+  --line-bright: rgba(247, 244, 235, 0.28);
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; background: var(--bg); }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ivory);
+  background-color: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* Background Motion Lights (Ánh sáng ambient chuyển động kiểu Lando Norris) */
+.bg-ambient {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.ambient-glow-1 {
+  position: absolute;
+  top: -20%; left: 15%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, rgba(247, 244, 235, 0.06) 0%, rgba(58, 72, 230, 0.07) 40%, transparent 70%);
+  filter: blur(80px);
+  animation: floatSlow 18s ease-in-out infinite alternate;
+}
+.ambient-glow-2 {
+  position: absolute;
+  bottom: -15%; right: 10%;
+  width: 55vw; height: 55vw;
+  background: radial-gradient(circle, rgba(247, 244, 235, 0.04) 0%, rgba(0, 180, 216, 0.05) 45%, transparent 70%);
+  filter: blur(90px);
+  animation: floatSlow 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes floatSlow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.08); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+/* Glassmorphism */
+header, main, .contact-card, .faq-item, .btn-back {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ========================================================
+   HEADER SCROLL MOTION (LANDO NORRIS STYLE)
+   ======================================================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid var(--line);
+  background: rgba(5, 5, 5, 0.65);
+}
+header.scrolled {
+  background: rgba(5, 5, 5, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid var(--line-bright);
+}
+.bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .bar {
+  padding: 8px 24px;
+}
+.bar img {
+  height: 64px;
+  width: auto;
+  border-radius: 8px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  display: block;
+}
+header.scrolled .bar img {
+  height: 40px;
+}
+.brand-name {
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--ivory);
+  flex: 1;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .brand-name {
+  font-size: 15px;
+  letter-spacing: 6px;
+}
+
+/* ========================================================
+   NỘI DUNG CHÍNH (IVORY GLASS CONTAINER)
+   ======================================================== */
+main {
+  max-width: 920px;
+  margin: 40px auto 60px auto;
+  padding: 45px 35px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.page-title {
+  text-align: center;
+  color: var(--ivory);
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.page-subtitle {
+  text-align: center;
+  color: var(--ivory-muted);
+  margin-bottom: 35px;
+  font-size: 15.5px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 25px;
+  line-height: 1.7;
+}
+
+/* Lưới nút liên hệ nhanh */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-bottom: 45px;
+}
+.contact-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--ivory);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(247, 244, 235, 0.03);
+}
+.contact-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--line-bright);
+  background: var(--bg-card-hover);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+.contact-card svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--ivory);
+  fill: none;
+  transition: transform 0.25s ease;
+}
+.contact-card:hover svg {
+  transform: scale(1.1);
+}
+.contact-card h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ivory);
+}
+.contact-card p {
+  margin: 0;
+  color: var(--ivory-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Phần FAQ */
+.faq-section h2 {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--ivory);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.faq-item {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ivory);
+  padding: 20px 22px;
+  border-radius: 0 16px 16px 0;
+  margin-bottom: 16px;
+  background: rgba(247, 244, 235, 0.03);
+  transition: all 0.25s ease;
+}
+.faq-item:hover {
+  border-color: var(--line-bright);
+  border-left-color: #ffffff;
+  background: var(--bg-card-hover);
+}
+.faq-q {
+  font-weight: 800;
+  font-size: 15.5px;
+  color: var(--ivory);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+.faq-a {
+  color: var(--ivory-muted);
+  font-size: 14.5px;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Nút Trở về Trang chủ */
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 45px auto 0 auto;
+  background: transparent;
+  color: var(--ivory) !important;
+  text-decoration: none;
+  padding: 13px 30px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  width: fit-content;
+  transition: all 0.25s ease;
+  border: 1px solid var(--line-bright);
+}
+.btn-back:hover {
+  background: var(--ivory);
+  color: #050505 !important;
+  box-shadow: 0 6px 20px rgba(247, 244, 235, 0.25);
+  transform: translateY(-2px);
+}
+
+footer {
+  text-align: center;
+  color: var(--ivory-muted);
+  padding: 35px 20px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .bar { padding: 12px 16px; gap: 10px; }
+  .bar img { height: 44px; }
+  header.scrolled .bar img { height: 32px; }
+  .brand-name { font-size: 13px !important; letter-spacing: 3px !important; }
+  header.scrolled .brand-name { font-size: 12px !important; letter-spacing: 3px !important; }
+  main { margin: 20px 14px; padding: 25px 16px; border-radius: 18px; }
+  .contact-card { padding: 22px 16px; }
+  .faq-item { padding: 16px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-ambient">
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+</div>
+
+<header id="mainHeader">
+  <div class="bar">
+    <a href="index.html"><img src="logo.jpg" alt="Xanhfish" id="headerLogo"></a>
+    <span class="brand-name">Xanhfish - Cá Cảnh Biển</span>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title">🎧 Trung tâm Hỗ trợ Khách hàng</h1>
+  <p class="page-subtitle">Xanhfish luôn ở đây để giúp bạn giải đáp mọi thắc mắc về cách chăm sóc cá, setup bể, và xử lý các vấn đề về đơn hàng.</p>
+
+  <!-- Lưới Nút Liên Hệ -->
+  <div class="contact-grid">
+    <a href="tel:0985617606" class="contact-card">
+      <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      <h3>Gọi Điện Trực Tiếp</h3>
+      <p>0985.617.606<br>(Hỗ trợ 24/7 khi khẩn cấp)</p>
+    </a>
+    <a href="https://zalo.me/0985617606" target="_blank" class="contact-card">
+      <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.89 12.55C20.89 7.42 16.32 3.5 11.2 3.5C6.07 3.5 1.5 7.42 1.5 12.55C1.5 17.68 6.07 21.6 11.2 21.6C12.43 21.6 13.59 21.36 14.65 20.93L19.46 22L18.42 17.65C19.98 16.3 20.89 14.54 20.89 12.55Z"></path></svg>
+      <h3>Nhắn tin Zalo</h3>
+      <p>Gửi video bảo hành,<br>nhận tư vấn chi tiết hình ảnh cá</p>
+    </a>
+    <a href="https://www.facebook.com/share/19Xt2LugJr/?mibextid=wwXIfr" target="_blank" class="contact-card">
+      <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+      <h3>Chat qua Fanpage</h3>
+      <p>Theo dõi các lô cá mới về<br>và ưu đãi hàng tuần</p>
+    </a>
+  </div>
+
+  <!-- Góc giải đáp FAQ -->
+  <div class="faq-section">
+    <h2>💡 Góc giải đáp thắc mắc (FAQ)</h2>
+    
+    <div class="faq-item">
+      <div class="faq-q">Q: Khi mới mua cá biển về, tôi cần thuần cá như thế nào để cá không bị sốc?</div>
+      <div class="faq-a">A: Bạn cần ngâm nguyên bịch cá vào hồ khoảng 15-20 phút để cân bằng nhiệt độ. Sau đó, mở túi và dùng ống sủi oxy nhỏ giọt nước từ hồ vào bịch cá (thuần nhỏ giọt) trong 30-45 phút để cá quen với độ mặn (pH) mới trước khi thả cá vào hồ.</div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-q">Q: Xanhfish có hỗ trợ đến tận nhà tư vấn và setup bể cá biển không?</div>
+      <div class="faq-a">A: Có. Xanhfish có đội ngũ kỹ thuật chuyên nhận setup hồ cá biển trọn gói từ A-Z tại khu vực nội thành TP.HCM. Bạn vui lòng liên hệ Zalo hoặc Hotline để được khảo sát và báo giá chi tiết.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Q: Giờ làm việc của cửa hàng là từ mấy giờ? Tôi có thể qua xem trực tiếp không?</div>
+      <div class="faq-a">A: Cửa hàng luôn sẵn sàng đón tiếp khách đến tham quan tại địa chỉ 81/36 Đường Số 2, TP. Thủ Đức. Thời gian mở cửa từ 8h00 sáng đến 20h00 tối các ngày trong tuần. Vui lòng gọi điện trước khi qua để chúng tôi hỗ trợ tốt nhất!</div>
+    </div>
+  </div>
+
+  <a href="index.html" class="btn-back">
+    ← Trở về Trang chủ
+  </a>
+</main>
+
+<footer>Xanhfish · Hotline/Zalo: 0985617606 · Thành phố Hồ Chí Minh</footer>
+
+<script>
+// Header Scroll Motion (Thu gọn mượt mà khi cuộn trang)
+const mainHeader = document.getElementById("mainHeader");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 40) {
+    mainHeader.classList.add("scrolled");
+  } else {
+    mainHeader.classList.remove("scrolled");
+  }
+});
+</script>
+
+</body>
+</html>

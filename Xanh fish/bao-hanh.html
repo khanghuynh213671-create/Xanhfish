@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chính sách Bảo hành - Xanhfish</title>
+<style>
+/* ========================================================
+   THEME: LANDO NORRIS SPEED & IVORY GLASS (PURE BLACK)
+   ======================================================== */
+:root {
+  --bg: #050505;
+  --bg-card: rgba(247, 244, 235, 0.035);
+  --bg-card-hover: rgba(247, 244, 235, 0.07);
+  --ivory: #f7f4eb;
+  --ivory-muted: #b5b1a5;
+  --line: rgba(247, 244, 235, 0.12);
+  --line-bright: rgba(247, 244, 235, 0.28);
+  --alert-red: #ff6b81;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; background: var(--bg); }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ivory);
+  background-color: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* Background Motion Lights (Cảm hứng ánh sáng đường đua Lando Norris) */
+.bg-ambient {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.ambient-glow-1 {
+  position: absolute;
+  top: -20%; left: 15%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, rgba(247, 244, 235, 0.06) 0%, rgba(58, 72, 230, 0.07) 40%, transparent 70%);
+  filter: blur(80px);
+  animation: floatSlow 18s ease-in-out infinite alternate;
+}
+.ambient-glow-2 {
+  position: absolute;
+  bottom: -15%; right: 10%;
+  width: 55vw; height: 55vw;
+  background: radial-gradient(circle, rgba(247, 244, 235, 0.04) 0%, rgba(0, 180, 216, 0.05) 45%, transparent 70%);
+  filter: blur(90px);
+  animation: floatSlow 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes floatSlow {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.08); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+/* Glassmorphism Classes */
+header, main, .alert-box, .btn-back, .big-btn {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ========================================================
+   HEADER SCROLL MOTION (LANDO NORRIS STYLE)
+   ======================================================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid var(--line);
+  background: rgba(5, 5, 5, 0.65);
+}
+header.scrolled {
+  background: rgba(5, 5, 5, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid var(--line-bright);
+}
+.bar {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .bar {
+  padding: 8px 24px;
+}
+.bar img {
+  height: 64px;
+  width: auto;
+  border-radius: 8px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  display: block;
+}
+header.scrolled .bar img {
+  height: 40px;
+}
+.brand-name {
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--ivory);
+  flex: 1;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+header.scrolled .brand-name {
+  font-size: 15px;
+  letter-spacing: 6px;
+}
+
+/* ========================================================
+   NỘI DUNG CHÍNH (IVORY ACCENT)
+   ======================================================== */
+main {
+  max-width: 920px;
+  margin: 40px auto 60px auto;
+  padding: 45px 35px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.page-title {
+  text-align: center;
+  color: var(--ivory);
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 900;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.main-desc {
+  color: var(--ivory-muted);
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 15.5px;
+}
+
+/* Khối Điều kiện bắt buộc (Ivory Glass Alert) */
+.alert-box {
+  background: rgba(247, 244, 235, 0.04);
+  border: 1px dashed var(--line-bright);
+  padding: 28px;
+  border-radius: 18px;
+  margin-bottom: 35px;
+}
+.alert-title {
+  color: var(--ivory);
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.alert-title svg {
+  stroke: var(--ivory);
+  flex-shrink: 0;
+}
+.alert-box p {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  color: var(--ivory-muted);
+  line-height: 1.65;
+}
+.alert-box p:last-child {
+  margin-bottom: 0;
+}
+.alert-box b {
+  color: var(--ivory);
+}
+.highlight-text {
+  background: rgba(247, 244, 235, 0.12);
+  border: 1px solid var(--line-bright);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 800;
+  color: var(--ivory);
+  letter-spacing: 0.5px;
+}
+
+/* Danh sách điều khoản */
+.reject-title {
+  color: var(--alert-red);
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+.policy-list {
+  padding-left: 22px;
+  color: var(--ivory-muted);
+}
+.policy-list li {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+/* ========================================================
+   PHẦN NÚT LIÊN HỆ TO BẢN (SPEED & MINIMALIST)
+   ======================================================== */
+.contact-section {
+  margin-top: 50px;
+  padding-top: 35px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.contact-section h2 {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--ivory);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.contact-desc {
+  color: var(--ivory-muted);
+  margin-bottom: 30px;
+  font-size: 14.5px;
+}
+
+.big-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.big-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--ivory) !important;
+  font-weight: 800;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: rgba(247, 244, 235, 0.03);
+}
+.big-btn:hover {
+  transform: translateY(-5px);
+  border-color: var(--line-bright);
+  background: var(--bg-card-hover);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+}
+.big-btn svg {
+  width: 38px;
+  height: 38px;
+  fill: var(--ivory);
+  transition: transform 0.25s ease;
+}
+.big-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Nút Trở về Trang chủ */
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 45px auto 0 auto;
+  background: transparent;
+  color: var(--ivory) !important;
+  text-decoration: none;
+  padding: 13px 30px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  width: fit-content;
+  transition: all 0.25s ease;
+  border: 1px solid var(--line-bright);
+}
+.btn-back:hover {
+  background: var(--ivory);
+  color: #050505 !important;
+  box-shadow: 0 6px 20px rgba(247, 244, 235, 0.25);
+  transform: translateY(-2px);
+}
+
+footer {
+  text-align: center;
+  color: var(--ivory-muted);
+  padding: 35px 20px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .bar { padding: 12px 16px; gap: 10px; }
+  .bar img { height: 44px; }
+  header.scrolled .bar img { height: 32px; }
+  .brand-name { font-size: 13px !important; letter-spacing: 3px !important; }
+  header.scrolled .brand-name { font-size: 12px !important; letter-spacing: 3px !important; }
+  main { margin: 20px 14px; padding: 25px 16px; border-radius: 18px; }
+  .alert-box { padding: 18px 14px; }
+  .alert-title { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-ambient">
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+</div>
+
+<header id="mainHeader">
+  <div class="bar">
+    <a href="index.html"><img src="logo.jpg" alt="Xanhfish" id="headerLogo"></a>
+    <span class="brand-name">Xanhfish - Cá Cảnh Biển</span>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title">🛡️ Cam kết Bảo hành Cá khỏe (Arrive Alive)</h1>
+  
+  <p class="main-desc">
+    Niềm tin của khách hàng là ưu tiên số 1 của Xanhfish. Chúng tôi cam kết đền bù 100% giá trị nếu cá gặp rủi ro trong quá trình vận chuyển, với điều kiện duy nhất dưới đây:
+  </p>
+
+  <!-- Khối Nhấn mạnh Điều kiện Bảo hành -->
+  <div class="alert-box">
+    <div class="alert-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      ĐIỀU KIỆN BẮT BUỘC ĐỂ ĐƯỢC BẢO HÀNH
+    </div>
+    <p>1. Khách hàng bắt buộc phải có <span class="highlight-text">VIDEO QUAY KHÔNG CẮT GHÉP</span> toàn bộ quá trình mở thùng xốp và mở túi cá.</p>
+    <p>2. Video phải nhìn rõ tình trạng cá trong túi khi <b>túi vẫn còn nguyên vẹn, chưa mở dây chun / nilon niêm phong</b>.</p>
+    <p>3. Thời gian gửi video khiếu nại cho Xanhfish: <span class="highlight-text">TỐI ĐA TRONG VÒNG 2 GIỜ</span> kể từ khi nhận được hàng từ đơn vị vận chuyển.</p>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <h3 class="reject-title">❌ Các trường hợp Xanhfish TỪ CHỐI bảo hành:</h3>
+    <ul class="policy-list">
+      <li>Cá đã được thả vào hồ (kể cả hồ cách ly) mà không có video khui hàng ban đầu.</li>
+      <li>Video có dấu hiệu chỉnh sửa, cắt ghép hoặc quay sau khi đã mở chun buộc túi.</li>
+      <li>Khách hàng cung cấp sai địa chỉ, số điện thoại hoặc không nghe máy khiến đơn vị vận chuyển giao hàng chậm trễ quá 24h.</li>
+      <li>Cá chết do khách hàng ngâm bao hoặc sốc nước/sốc nhiệt sai quy trình thuần cá.</li>
+    </ul>
+  </div>
+
+  <!-- Phần Nút Liên Hệ Khổng Lồ -->
+  <div class="contact-section">
+    <h2>Trạm hỗ trợ & Xử lý khiếu nại siêu tốc</h2>
+    <p class="contact-desc">Nếu có bất kỳ vấn đề gì về đơn hàng, hãy nhấn vào 1 trong 3 nút dưới đây để Xanhfish hỗ trợ bạn ngay lập tức!</p>
+    
+    <div class="big-contact-grid">
+      <a href="tel:0985617606" class="big-btn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Gọi ngay Hotline
+      </a>
+      
+      <a href="https://zalo.me/0985617606" target="_blank" class="big-btn">
+        <svg viewBox="0 0 24 24"><path d="M20.89 12.55C20.89 7.42 16.32 3.5 11.2 3.5C6.07 3.5 1.5 7.42 1.5 12.55C1.5 17.68 6.07 21.6 11.2 21.6C12.43 21.6 13.59 21.36 14.65 20.93L19.46 22L18.42 17.65C19.98 16.3 20.89 14.54 20.89 12.55Z"></path></svg>
+        Nhắn Zalo kèm Video
+      </a>
+      
+      <a href="https://www.facebook.com/share/19Xt2LugJr/?mibextid=wwXIfr" target="_blank" class="big-btn">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        Chat qua Fanpage
+      </a>
+    </div>
+  </div>
+
+  <a href="index.html" class="btn-back">
+    ← Trở về Trang chủ
+  </a>
+</main>
+
+<footer>Xanhfish · Hotline/Zalo: 0985617606 · Thành phố Hồ Chí Minh</footer>
+
+<script>
+// Header Scroll Motion (Thu gọn mượt mà khi cuộn trang)
+const mainHeader = document.getElementById("mainHeader");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 40) {
+    mainHeader.classList.add("scrolled");
+  } else {
+    mainHeader.classList.remove("scrolled");
+  }
+});
+</script>
+
+</body>
+</html>
