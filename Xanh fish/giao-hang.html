@@ -4,254 +4,64 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Chính Sách Giao Hàng - Xanhfish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* ========================================================
-   THEME: LANDO NORRIS SPEED & IVORY GLASS (PURE BLACK)
-   ======================================================== */
 :root {
-  --bg: #050505;
-  --bg-card: rgba(247, 244, 235, 0.035);
-  --bg-card-hover: rgba(247, 244, 235, 0.07);
-  --ivory: #f7f4eb;
-  --ivory-muted: #b5b1a5;
-  --line: rgba(247, 244, 235, 0.12);
-  --line-bright: rgba(247, 244, 235, 0.28);
-  box-sizing: border-box;
+  --paper: #f5efe6;
+  --paper-card: #fdfaf4;
+  --ink: #102372;
 }
-
-html { scroll-behavior: smooth; background: var(--bg); }
 * { box-sizing: border-box; }
-
 body {
-  margin: 0;
-  color: var(--ivory);
-  background-color: var(--bg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  -webkit-tap-highlight-color: transparent;
-  overflow-x: hidden;
-  line-height: 1.8;
+  margin: 0; color: var(--ink); background-color: var(--paper);
+  font-family: 'Roboto', sans-serif; line-height: 1.8;
+  background-image: radial-gradient(rgba(16, 35, 114, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
 }
-
-/* Background Motion Lights (Cảm hứng ánh sáng đường đua Lando Norris) */
-.bg-ambient {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-.ambient-glow-1 {
-  position: absolute;
-  top: -20%; left: 15%;
-  width: 60vw; height: 60vw;
-  background: radial-gradient(circle, rgba(247, 244, 235, 0.06) 0%, rgba(58, 72, 230, 0.07) 40%, transparent 70%);
-  filter: blur(80px);
-  animation: floatSlow 18s ease-in-out infinite alternate;
-}
-.ambient-glow-2 {
-  position: absolute;
-  bottom: -15%; right: 10%;
-  width: 55vw; height: 55vw;
-  background: radial-gradient(circle, rgba(247, 244, 235, 0.04) 0%, rgba(0, 180, 216, 0.05) 45%, transparent 70%);
-  filter: blur(90px);
-  animation: floatSlow 22s ease-in-out infinite alternate-reverse;
-}
-@keyframes floatSlow {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-30px, 60px) scale(0.95); }
-}
-
-/* Glassmorphism */
-header, .content-box, .back-btn, .btn-back {
-  background: var(--bg-card);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-/* ========================================================
-   HEADER SCROLL MOTION (LANDO NORRIS STYLE)
-   ======================================================== */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  border-bottom: 1px solid var(--line);
-  background: rgba(5, 5, 5, 0.65);
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(245, 239, 230, 0.95); backdrop-filter: blur(8px);
+  border-bottom: 2px dotted var(--ink); padding: 14px 20px;
 }
-header.scrolled {
-  background: rgba(5, 5, 5, 0.9);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid var(--line-bright);
-}
-.bar {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 16px 24px;
-  transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-header.scrolled .bar {
-  padding: 8px 24px;
-}
-.bar img {
-  height: 60px;
-  width: auto;
-  border-radius: 8px;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  flex-shrink: 0;
-  display: block;
-}
-header.scrolled .bar img {
-  height: 38px;
-}
-.brand-name {
-  font-weight: 900;
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  color: var(--ivory);
-  flex: 1;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-header.scrolled .brand-name {
-  font-size: 15px;
-  letter-spacing: 6px;
-}
-.back-btn {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--ivory);
-  text-decoration: none;
-  border: 1px solid var(--line);
-  padding: 8px 18px;
-  border-radius: 999px;
-  transition: 0.25s ease;
-  flex-shrink: 0;
-}
-.back-btn:hover {
-  background: var(--ivory);
-  color: #050505;
-  box-shadow: 0 4px 15px rgba(247, 244, 235, 0.2);
-}
+.bar { max-width: 1000px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.back-btn { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1.5px solid var(--ink); padding: 8px 18px; border-radius: 999px; }
+.back-btn:hover { background: var(--ink); color: var(--paper); }
 
-/* ========================================================
-   NỘI DUNG CHÍNH (IVORY GLASS BOX)
-   ======================================================== */
-main {
-  max-width: 920px;
-  margin: 40px auto 60px auto;
-  padding: 0 20px;
-}
+main { max-width: 900px; margin: 40px auto 60px auto; padding: 0 20px; }
 .content-box {
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 45px 35px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  background: var(--paper-card); border: 2px solid var(--ink);
+  border-radius: 16px; padding: 45px 35px; box-shadow: 6px 6px 0px var(--ink);
 }
-
 h1 {
-  font-size: clamp(24px, 4vw, 34px);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  color: var(--ivory);
-  margin-top: 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 18px;
+  font-family: 'Montserrat', sans-serif; font-size: clamp(22px, 3.8vw, 30px); font-weight: 900;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0; margin-bottom: 20px;
+  border-bottom: 2px dotted var(--ink); padding-bottom: 16px;
 }
 h2 {
-  font-size: 18px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--ivory);
-  margin-top: 35px;
-  margin-bottom: 12px;
+  font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800;
+  text-transform: uppercase; margin-top: 35px; margin-bottom: 12px;
 }
-p {
-  color: var(--ivory-muted);
-  font-size: 15.5px;
-  margin: 12px 0;
+p { font-size: 15px; margin: 12px 0; }
+ul { padding-left: 20px; font-size: 14.5px; }
+li { margin-bottom: 10px; }
+.btn-back-center {
+  display: flex; align-items: center; justify-content: center;
+  margin: 40px auto 0 auto; background: transparent; color: var(--ink) !important;
+  text-decoration: none; padding: 12px 28px; border-radius: 999px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px;
+  border: 1.5px solid var(--ink); width: fit-content; text-transform: uppercase;
 }
-b, strong {
-  color: var(--ivory);
-}
-ul {
-  padding-left: 22px;
-  color: var(--ivory-muted);
-}
-li {
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-
-/* Nút Trở về cuối trang */
-.btn-back {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 40px auto 0 auto;
-  background: transparent;
-  color: var(--ivory) !important;
-  text-decoration: none;
-  padding: 13px 30px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  width: fit-content;
-  transition: all 0.25s ease;
-  border: 1px solid var(--line-bright);
-}
-.btn-back:hover {
-  background: var(--ivory);
-  color: #050505 !important;
-  box-shadow: 0 6px 20px rgba(247, 244, 235, 0.25);
-  transform: translateY(-2px);
-}
-
-footer {
-  text-align: center;
-  color: var(--ivory-muted);
-  padding: 35px 20px;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-top: 1px solid var(--line);
-  margin-top: 40px;
-}
-
-@media (max-width: 600px) {
-  .bar { padding: 12px 16px; gap: 10px; }
-  .bar img { height: 42px; }
-  header.scrolled .bar img { height: 32px; }
-  .brand-name { font-size: 13px !important; letter-spacing: 3px !important; }
-  header.scrolled .brand-name { font-size: 12px !important; letter-spacing: 3px !important; }
-  .back-btn { padding: 6px 12px; font-size: 11px; }
-  .content-box { padding: 25px 18px; border-radius: 18px; }
-}
+.btn-back-center:hover { background: var(--ink); color: var(--paper) !important; }
+footer { font-family: 'Montserrat', sans-serif; text-align: center; padding: 40px 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
 </style>
 </head>
 <body>
 
-<div class="bg-ambient">
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
-</div>
-
-<header id="mainHeader">
+<header>
   <div class="bar">
-    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;"><img src="logo.jpg" alt="Xanhfish" id="headerLogo"></a>
-    <span class="brand-name">Xanhfish</span>
+    <a href="index.html" class="brand">XANHFISH</a>
     <a href="index.html" class="back-btn">← Về trang chủ</a>
   </div>
 </header>
@@ -270,29 +80,16 @@ footer {
     <h2>2. Giao hàng liên tỉnh</h2>
     <ul>
       <li><b>Đóng thùng xốp chuyên dụng:</b> Đóng gói 2 lớp túi dày, sục oxy tinh khiết có thể duy trì sự sống trong 24 - 36 tiếng, đi kèm túi đá khô điều hòa nhiệt độ mùa nóng.</li>
-      <li><b>Vận chuyển bến xe:</b> Gửi trực tiếp đến bến xe hoặc nhà xe quen theo yêu cầu của quý khách để nhận cá trong ngày.</li>
+      <li><b>Vận chuyển qua chành xe / bến xe:</b> Gửi trực tiếp đến bến xe hoặc nhà xe quen theo yêu cầu của quý khách để nhận cá trong ngày.</li>
     </ul>
 
     <h2>3. Biểu phí giao hàng</h2>
     <p>Phí ship được tính theo biểu phí thực tế của đơn vị vận chuyển tại thời điểm tạo đơn. </p>
 
-    <a href="index.html" class="btn-back">← Trở về Trang chủ</a>
+    <a href="index.html" class="btn-back-center">← Trở về Trang chủ</a>
   </div>
 </main>
 
 <footer>Xanhfish · Hotline: 0985617606 · Thành phố Hồ Chí Minh</footer>
-
-<script>
-// Header Scroll Motion (Thu gọn mượt mà khi cuộn trang)
-const mainHeader = document.getElementById("mainHeader");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 40) {
-    mainHeader.classList.add("scrolled");
-  } else {
-    mainHeader.classList.remove("scrolled");
-  }
-});
-</script>
-
 </body>
 </html>
